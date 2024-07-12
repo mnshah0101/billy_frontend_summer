@@ -28,7 +28,10 @@ export default function RootLayout({
 
         <meta name="description" content="Your favorite betting assistant." />
 
-        <meta name="keywords" content="betting, assistant, sports betting, Billy Bets, betting app" />
+        <meta
+          name="keywords"
+          content="betting, assistant, sports betting, Billy Bets, betting app"
+        />
 
         <meta name="robots" content="index, follow" />
 
@@ -36,12 +39,14 @@ export default function RootLayout({
 
         <link rel="icon" href="/favicon.ico" />
 
-       
-
-
-       
-
-
+        <meta property="og:image" content="/preview.png" />
+        <meta property="og:title" content="Billy Bets" />
+        <meta
+          property="og:description"
+          content="Your favorite betting assistant."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://askbilly.bet" />
       </head>
 
       <body className={inter.className}>{children}</body>
