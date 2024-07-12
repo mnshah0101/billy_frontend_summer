@@ -71,6 +71,8 @@ function addNewlinesToMarkdown(markdown: string): string {
   return result;
 }
 
+let session = uuidv4();
+
 
 
 
@@ -89,7 +91,7 @@ export default function Dashboard() {
 
 
 
-  let session = uuidv4();
+  
 
 
 
