@@ -129,9 +129,27 @@ export default function Dashboard() {
       { role: "assistant", content: "Thinking..." },
     ]);
 
+    //get chat history as a string
+    let chatHistory = [...history].toString();
+
+    let newInput = input;
+
+
+    let sendMessage = `
+
+    This is the chat history: ${chatHistory}
+
+
+    This is the new message from the user: ${newInput}
+
+  
+    `
+
+
+
     socket.on("connect", () => {
       socket.emit("billy", {
-        message: { session: session, message: [...history, input].toString() },
+        message: { session: session, message: sendMessage },
       });
 
       socket.on("billy", (data) => {
@@ -169,8 +187,7 @@ export default function Dashboard() {
    
 
 
-  const handleSend = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSend = () => {
     if (input.trim()) {
       setMessages([...messages, { role: "user", content: input }]);
       setInput("");
@@ -307,6 +324,7 @@ export default function Dashboard() {
                   className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { handleSend(); } }}
                 />
                 <div className="flex items-center p-3 pt-0">
                   <Button
