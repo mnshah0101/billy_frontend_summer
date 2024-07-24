@@ -1,6 +1,6 @@
 "use client";
 import { io } from "socket.io-client";
-import React, { EventHandler, useState, useRef, useEffect } from 'react';
+import React, { EventHandler, useState, useRef, useEffect, ReactEventHandler } from 'react';
 import Markdown from "react-markdown";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -187,7 +187,11 @@ export default function Dashboard() {
    
 
 
-  const handleSend = () => {
+  const handleSend = (e: React.FormEvent ) => {
+
+    e.preventDefault();
+
+
     if (input.trim()) {
       setMessages([...messages, { role: "user", content: input }]);
       setInput("");
@@ -324,7 +328,9 @@ export default function Dashboard() {
                   className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { handleSend(); } }}
+                  onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault()
+                    handleSend(e)
+                  } }}
                 />
                 <div className="flex items-center p-3 pt-0">
                   <Button
