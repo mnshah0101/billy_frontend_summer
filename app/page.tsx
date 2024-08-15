@@ -119,7 +119,7 @@ export default function Dashboard() {
   const getBillyResponse = async (input: string) => {
     setHistory((prev) => [...prev, input]);
 
-    const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`);
+    const socket = io(apiUrl);
 
     setSqlLoading(true);
     setIsAnswering(true);
@@ -201,47 +201,34 @@ export default function Dashboard() {
       getBillyResponse(input);
     }
   };
+
+
+  const [apiUrl, setApiUrl] = useState(process.env.NEXT_PUBLIC_API_URL || '');
   
 
   return (
     <TooltipProvider>
       <div className="grid h-screen w-full ">
         <div className="flex flex-col">
-          <header className="sticky top-0 z-10 flex h-[57px] items-center gap-1 border-b bg-background px-4">
+          <header className="sticky top-0 z-10 flex h-[57px] items-center justify-between gap-1 border-b bg-background px-4">
             <h1 className="text-xl font-semibold">Ask Billy</h1>
-            <Drawer>
-              <DrawerTrigger asChild></DrawerTrigger>
-              <DrawerContent className="max-h-[80vh]">
-                <DrawerHeader>
-                  <DrawerTitle>Configuration</DrawerTitle>
-                  <DrawerDescription>
-                    Configure the settings for the model and messages.
-                  </DrawerDescription>
-                </DrawerHeader>
-                <form className="grid w-full items-start gap-6 overflow-auto p-4 pt-0">
-                  <fieldset className="grid gap-6 rounded-lg border p-4">
-                    <div className="grid gap-3">
-                      <Label htmlFor="role">Role</Label>
-                      <Select defaultValue="system">
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a role" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="system">System</SelectItem>
-                          <SelectItem value="user">User</SelectItem>
-                          <SelectItem value="assistant">Assistant</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="grid gap-3">
-                      <Label htmlFor="content">SQL Query</Label>
-
-                      <Textarea id="content" placeholder="You are a..." />
-                    </div>
-                  </fieldset>
-                </form>
-              </DrawerContent>
-            </Drawer>
+            {/* Dropdown to select API URL */}
+            <Select
+              onValueChange={(value) => setApiUrl(value)}
+              defaultValue={apiUrl}
+            >
+              <SelectTrigger className="w-60">
+                <SelectValue placeholder="Select API" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={process.env.NEXT_PUBLIC_API_URL || ""}>
+                  Billy 1.0.1 (Beta)
+                </SelectItem>
+                <SelectItem value={process.env.NEXT_PUBLIC_OLD_API_URL || ""}>
+                  Billy 1.0.0 (Old)
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </header>
           <main className="grid flex-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3">
             <div
@@ -328,9 +315,12 @@ export default function Dashboard() {
                   className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault()
-                    handleSend(e)
-                  } }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSend(e);
+                    }
+                  }}
                 />
                 <div className="flex items-center p-3 pt-0">
                   <Button
