@@ -121,6 +121,9 @@ export default function Dashboard() {
 
     const socket = io(apiUrl);
 
+    console.log('sending to billy');
+    console.log(apiUrl);
+
     setSqlLoading(true);
     setIsAnswering(true);
 
