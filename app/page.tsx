@@ -140,10 +140,10 @@ export default function Dashboard() {
 
     let sendMessage = `
 
-    This is the chat history: ${chatHistory}
+    Chat_History: ${chatHistory}
 
 
-    This is the new message from the user: ${newInput}
+    User_Question: ${newInput}
 
   
     `
