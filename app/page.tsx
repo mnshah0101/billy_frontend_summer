@@ -206,7 +206,9 @@ export default function Dashboard() {
   };
 
 
-  const [apiUrl, setApiUrl] = useState(process.env.NEXT_PUBLIC_API_URL || '');
+  const [apiUrl, setApiUrl] = useState(
+    process.env.NEXT_PUBLIC_OLD_API_URL || ""
+  );
   
 
   return (
