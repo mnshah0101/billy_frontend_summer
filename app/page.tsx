@@ -224,11 +224,11 @@ export default function Dashboard() {
                 <SelectValue placeholder="Select API" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value={process.env.NEXT_PUBLIC_OLD_API_URL || ""}>
+                  Billy 1.0.0 (Stable)
+                </SelectItem>
                 <SelectItem value={process.env.NEXT_PUBLIC_API_URL || ""}>
                   Billy 1.0.1 (Beta)
-                </SelectItem>
-                <SelectItem value={process.env.NEXT_PUBLIC_OLD_API_URL || ""}>
-                  Billy 1.0.0 (Old)
                 </SelectItem>
               </SelectContent>
             </Select>
