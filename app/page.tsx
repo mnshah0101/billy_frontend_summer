@@ -229,9 +229,7 @@ export default function Dashboard() {
                 <SelectItem value={process.env.NEXT_PUBLIC_OLD_API_URL || ""}>
                   Billy 1.0.0 (Stable)
                 </SelectItem>
-                <SelectItem value={process.env.NEXT_PUBLIC_API_URL || ""}>
-                  Billy 1.0.1 (Beta)
-                </SelectItem>
+               
               </SelectContent>
             </Select>
           </header>
