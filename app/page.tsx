@@ -227,7 +227,7 @@ export default function Dashboard() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value={process.env.NEXT_PUBLIC_OLD_API_URL || ""}>
-                  Billy 1.0.0 (Stable)
+                  Billy v1
                 </SelectItem>
                
               </SelectContent>
